@@ -7,9 +7,8 @@ import {
   X,
 } from 'react-feather';
 
-import VisuallyHidden from '../VisuallyHidden';
-
-import styles from './Toast.module.css';
+import VisuallyHidden from "../VisuallyHidden";
+import styles from "./Toast.module.css";
 
 const ICONS_BY_VARIANT = {
   notice: Info,
@@ -18,21 +17,29 @@ const ICONS_BY_VARIANT = {
   error: AlertOctagon,
 };
 
-function Toast() {
+function Toast({ variant, text, setIsVisible }) {
+  const variantStyle = `${styles.toast} ${styles[variant]}`;
+  console.log(variantStyle);
+
   return (
-    <div className={`${styles.toast} ${styles.notice}`}>
+    <div className={variantStyle}>
       <div className={styles.iconContainer}>
-        <Info size={24} />
+        <ToastIcon icon={ICONS_BY_VARIANT[variant]} />
       </div>
-      <p className={styles.content}>
-        16 photos have been uploaded
-      </p>
-      <button className={styles.closeButton}>
+      <p className={styles.content}>{text}</p>
+      <button
+        className={styles.closeButton}
+        onClick={() => setIsVisible(false)}
+      >
         <X size={24} />
         <VisuallyHidden>Dismiss message</VisuallyHidden>
       </button>
     </div>
   );
+}
+
+function ToastIcon({ icon: Icon }) {
+  return <Icon size={24} />;
 }
 
 export default Toast;
