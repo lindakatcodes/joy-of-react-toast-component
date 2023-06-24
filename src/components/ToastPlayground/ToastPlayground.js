@@ -13,6 +13,10 @@ function ToastPlayground() {
   );
   const [isToastVisible, setIsToastVisible] = React.useState(false);
 
+  function handleDismiss() {
+    setIsToastVisible(false);
+  }
+
   return (
     <div className={styles.wrapper}>
       <header>
@@ -21,11 +25,9 @@ function ToastPlayground() {
       </header>
 
       {isToastVisible && (
-        <Toast
-          variant={selectedVariant}
-          text={message}
-          setIsVisible={setIsToastVisible}
-        />
+        <Toast variant={selectedVariant} handleDismiss={handleDismiss}>
+          {message}
+        </Toast>
       )}
 
       <div className={styles.controlsWrapper}>
