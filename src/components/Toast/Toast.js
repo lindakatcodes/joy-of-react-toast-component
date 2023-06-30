@@ -17,9 +17,15 @@ const ICONS_BY_VARIANT = {
   error: AlertOctagon,
 };
 
-function Toast({ variant, handleDismiss, children }) {
+function Toast({ id, currentToasts, variant, setToastArray, children }) {
   const variantStyle = `${styles.toast} ${styles[variant]}`;
-  console.log(variantStyle);
+
+  function handleDismiss() {
+    const nextToastArray = [...currentToasts].filter(
+      (toast) => toast.id !== id
+    );
+    setToastArray(nextToastArray);
+  }
 
   return (
     <div className={variantStyle}>
