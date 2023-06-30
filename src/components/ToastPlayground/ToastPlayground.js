@@ -18,7 +18,7 @@ function ToastPlayground() {
 
     const newToast = {
       variant: selectedVariant,
-      children: message,
+      message,
       id: crypto.randomUUID(),
     };
 
@@ -27,6 +27,11 @@ function ToastPlayground() {
     // reset form values
     setMessage("");
     setSelectedVariant(VARIANT_OPTIONS[0]);
+  }
+
+  function handleDismiss(id) {
+    const nextToastArray = [...toastArray].filter((toast) => toast.id !== id);
+    setToastArray(nextToastArray);
   }
 
   return (
@@ -84,7 +89,7 @@ function ToastPlayground() {
         </div>
       </form>
 
-      <ToastShelf toasts={toastArray} setToastArray={setToastArray} />
+      <ToastShelf toasts={toastArray} handleDismiss={handleDismiss} />
     </div>
   );
 }

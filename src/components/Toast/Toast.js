@@ -17,15 +17,8 @@ const ICONS_BY_VARIANT = {
   error: AlertOctagon,
 };
 
-function Toast({ id, currentToasts, variant, setToastArray, children }) {
+function Toast({ id, variant, handleDismiss, children }) {
   const variantStyle = `${styles.toast} ${styles[variant]}`;
-
-  function handleDismiss() {
-    const nextToastArray = [...currentToasts].filter(
-      (toast) => toast.id !== id
-    );
-    setToastArray(nextToastArray);
-  }
 
   return (
     <div className={variantStyle}>
@@ -33,7 +26,7 @@ function Toast({ id, currentToasts, variant, setToastArray, children }) {
         <ToastIcon icon={ICONS_BY_VARIANT[variant]} />
       </div>
       <p className={styles.content}>{children}</p>
-      <button className={styles.closeButton} onClick={handleDismiss}>
+      <button className={styles.closeButton} onClick={() => handleDismiss(id)}>
         <X size={24} />
         <VisuallyHidden>Dismiss message</VisuallyHidden>
       </button>
